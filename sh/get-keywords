@@ -1,7 +1,26 @@
 #!/bin/bash
 
-grep '\.log$' <<< "$1" \
-	&& filename="$1" \
-	|| filename="$1.log"
+# usage:
+#	./get-keywords <filename>
+# Make sure that a propperly written log-file with the name
+# <filename>.log is present
 
-iconv -s -f iso-8859-1 -t utf-8 "$filename" | grep -oP '(?<=\[keyword\]: ).*'
+# Currently this requires the jar file for publishing to the sql,
+# as well as the log file, to be placed in the same directory as
+# this script. Thish should be changed.
+
+today=$(date -I)
+rawfile=${1:-$today}
+
+grep -e '\.(log|tex)$' <<< "$rawfile" \
+	&& filename=${rawfile::-4} \
+	|| filename=$rawfile
+
+iconv -s -f iso-8859-1 -t utf-8 "$filename.log" \
+	| grep -oP '\d \[(keyword|course|title)\]:.*' \
+	| sort -t ' ' -hk 1 \
+	| cut -d ' ' -f 3- \
+	| cat <(echo "$filename") - \
+	| tee /tmp/latex-keyword-log-$filename \
+   	| java -jar database-deploy.jar
+
