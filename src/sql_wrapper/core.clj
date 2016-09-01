@@ -1,5 +1,6 @@
 (ns sql-wrapper.core
-  (:require [sql-wrapper.insert :as db]))
+  (:require [sql-wrapper.insert :as db])
+  (:gen-class))
 
 ;; MAIN
 (defn -main [& args]
