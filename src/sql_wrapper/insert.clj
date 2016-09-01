@@ -11,13 +11,12 @@
 (defn add-course!
  "Adds a course to the database, returns the mysql id of the course,
  both if it already existed and if it didn't"
- [name department]
+ [name]
   (best-key
     (first (try
              (sql/insert! database
                           :courses
-                          {:name name
-                           :department department})
+                          {:name name})
              (catch Exception e
                (sql/query database ["select id from courses where name like ?" name]))))
     :generated_key :id))
@@ -85,8 +84,8 @@
 
   TODO the argument list should possibly be changed from taking keys
   to just being raw, to force the user to give complete data."
-  [& {:keys [department course date document_name keywords]}]
-  (let [course_id (add-course! course department)
+  [& {:keys [course date document_name keywords]}]
+  (let [course_id (add-course! course)
         note_id (add-note! date course_id (if document_name document_name))
         keyword_ids (apply add-keyword-defs! keywords)]
     (apply add-keyword-bindings! (cons note_id keyword_ids))))
