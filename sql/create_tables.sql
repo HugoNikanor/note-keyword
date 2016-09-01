@@ -18,8 +18,6 @@ CREATE TABLE courses
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(16) NOT NULL,
 
-	department VARCHAR(16) NOT NULL,
-
 	UNIQUE (name),
 	PRIMARY KEY (id)
 );
