@@ -16,5 +16,4 @@ from keyword_bindings
 	join notes
 		on keyword_bindings.note_id = notes.id
 	join courses
-		on notes.course_id = courses.id
-order by notes.date desc;
+		on notes.course_id = courses.id;
