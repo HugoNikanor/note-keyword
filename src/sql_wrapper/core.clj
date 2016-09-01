@@ -1,40 +1,91 @@
 (ns sql-wrapper.core
-  (:require [clojure.java.jdbc :as sql]))
+  (:require [clojure.java.jdbc :as sql]
+            [sql-wrapper.macros :refer :all]))
 
+;; TODO possibly read this data from a config file
 (def database {:subprotocol "mysql"
                :subname "//127.0.0.1:3306/note_keywords"
                :user "root"
                :password ""})
 
-;; TODO error handling on already existing courses
-(defn add-course! [name department]
-  ((first (sql/insert! database
-                       :courses
-                       {:name name
-                        :department department}))
-   :generated_key))
+(defn add-course!
+ "Adds a course to the database, returns the mysql id of the course,
+ both if it already existed and if it didn't"
+ [name department]
+  (best-key
+    (first (try
+             (sql/insert! database
+                          :courses
+                          {:name name
+                           :department department})
+             (catch Exception e
+               (sql/query database ["select id from courses where name like ?" name]))))
+    :generated_key :id))
 
-;; TODO error handling on already existing notes
-(defn add-note! [date course_id & [name]]
-  ((first (sql/insert! database
-                       :notes
-                       (merge {:date date
-                               :course_id course_id}
-                              (if name {:name name}))))
-   :generated_key))
+(defn add-note!
+  "Adds information that a note exists to the database, the note
+  should be named  the same with the date, and the name field is
+  simply if a second simple identification is available.
 
-;; TODO error handling on already existing keywords
-(defn add-keyword-defs! [& name]
-  (map #(%1 :generated_key)
-       (sql/insert-multi! database :keywords (map #(hash-map :name %1) name))))
+  The function returns the mysql id of the note,
+  both if it exists since before and not"
+  [date course_id & [name]]
+  (best-key
+    (first (try
+             (sql/insert! database
+                          :notes
+                          (merge {:date date
+                                  :course_id course_id}
+                                 (if name {:name name})))
+             (catch Exception e
+               (sql/query database ["select id from notes"]))))
+    :generated_key :id))
 
-;; TODO error handling on already existing keywords
-(defn add-keyword-bindings! [note_id & keyword_ids]
-  (map #(%1 :generated_key)
-       (sql/insert-multi! database :keyword_bindings 
-                    (map #(hash-map :note_id note_id :keyword_id %1) keyword_ids))))
+(defn add-keyword-defs!
+ "Tell the database that the following words should be able to be used
+ as keywords. Inserts the names not already presents, and returns a
+ list of the id's of the keywords"
+ [& name]
+  (let [id (System/currentTimeMillis)]
+    (sql/execute! database
+                  (into []
+                        (cons
+                          (str "insert into keywords (name, group_id)
+                               values "
+                               (clojure.string/join ", "
+                                                    (repeat (count name) "(?, ?)"))
+                               " on duplicate key update group_id = ?")
+                          (concat
+                            (apply concat (map #(list %1 id) name))
+                            [id]))))
+    (map #(%1 :id)
+         (sql/query database ["select id from keywords where group_id = ?"
+                         id]))))
 
-(defn add-keywords-main! [& {:keys [department course date document_name keywords]}]
+(defn add-keyword-bindings!
+ "Adds bindings in the database between a note and a number of
+ keywords. failsafe if stuff already exists. Undefined return value"
+ [note_id & keyword_ids]
+    (sql/execute! database
+                  (into []
+                        (cons
+                          (str "insert ignore into keyword_bindings (note_id, keyword_id)
+                               values "
+                               (clojure.string/join ", "
+                                       (repeat (count keyword_ids) "(?, ?)")))
+                          (apply concat (map #(list note_id %1) keyword_ids))))))
+
+(defn add-keywords-main!
+  "Inserts a number of keyword bindings and required metadata for the
+  keywords into the database. All fields except keywords should be a
+  single value, and keywords a list of strings to be inserted. Note
+  that all arguments need to be filled.
+
+  Return undefined.
+
+  TODO the argument list should possibly be changed from taking keys
+  to just being raw, to force the user to give complete data."
+  [& {:keys [department course date document_name keywords]}]
   (let [course_id (add-course! course department)
         note_id (add-note! date course_id (if document_name document_name))
         keyword_ids (apply add-keyword-defs! keywords)]
