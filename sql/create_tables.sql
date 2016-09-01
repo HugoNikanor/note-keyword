@@ -2,6 +2,7 @@ CREATE TABLE keywords
 (
 	id INT NOT NULL AUTO_INCREMENT,
 	name varchar(128) NOT NULL,
+	group_id LONG,
 
 	UNIQUE (name),
 	PRIMARY KEY (id)
@@ -25,6 +26,7 @@ CREATE TABLE notes
 	date varchar(16) NOT NULL,
 	course_id INT NOT NULL,
 
+	UNIQUE (date, course_id),
 	PRIMARY KEY (id)
 );
 
