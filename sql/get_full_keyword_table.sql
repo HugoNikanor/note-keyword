@@ -9,7 +9,7 @@ select
 	keywords.name as keyword,
 	notes.date,
 	notes.name as note_name,
-	courses.name as course_name
+	upper(courses.name) as course_name
 from keyword_bindings
 	join keywords
 		on keyword_bindings.keyword_id = keywords.id
