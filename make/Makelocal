@@ -1,0 +1,19 @@
+.PHONY: all roll disp live publish
+
+# File
+f=`date -I`
+
+all:
+	latexmk -pdf $(f)
+
+roll:
+	latexmk -pdf -pvc $(f)
+
+disp:
+	mupdf $(f).pdf &
+
+publish:
+	git commit --allow-empty -m "!publish: $(f)"
+	git push
+
+live: | disp roll

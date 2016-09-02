@@ -1,0 +1,7 @@
+# File
+f=`date -I`
+
+all:
+	latexmk -pdf $(f)
+	./get-keywords
+	cp $(f).pdf publish/
