@@ -15,6 +15,6 @@ disp:
 publish:
 	git commit --allow-empty -m "#publish: $(f)"
 	# Possibly throw away this output
-	git push &
+	git push
 
 live: | disp roll
