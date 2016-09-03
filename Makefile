@@ -27,4 +27,6 @@ remote:
 	git clone https://github.com/hugonikanor/latexpackages.git /tmp/latexpackages
 	cp /tmp/latexclasses/note.cls $(path)/
 	cp /tmp/latexpackages/keyword.sty $(path)/
+
+	@echo "Remember to set SQL connection information in $(path)/get-keywords 
 	
