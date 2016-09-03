@@ -1,11 +1,10 @@
 # File
-f=`date -I`
+file=`date -I`
 
 all:
 	# Input should be without a file exntensio
 	# Maybe the script should be updated to
 	# strip any file ending given
-	latexmk -pdf $(f) \
-		&& cp $(f).pdf publish/ \
-		&& ./get-keywords $(f) \
-		&
+	cd $(path); latexmk -pdf $(file)
+	cp $(path)/$(file).pdf publish/$(path)/
+	./get-keywords $(path)/$(file)
