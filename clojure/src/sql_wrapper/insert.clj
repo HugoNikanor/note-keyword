@@ -82,4 +82,4 @@
   (let [course_id (add-course! database course)
         note_id (add-note! database date course_id (if document_name document_name))
         keyword_ids (apply add-keyword-defs! (cons database keywords))]
-    (apply add-keyword-bindings! (conj [database note_id] keyword_ids))))
+    (apply add-keyword-bindings! (cons database (cons note_id keyword_ids)))))
