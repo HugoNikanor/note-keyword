@@ -13,13 +13,14 @@ remote:
 	mkdir $(path) || true
 	mysql -u $(mysqluser) -p < sql/create_full.sql
 
-	ln -s /var/www/html/lectures $(path)/publish || true
-	ln -s $(here)/sh/get-keywords $(path)/ || true
-	ln -s $(here)/clojure/database-deploy.jar $(path)/ || true
-	ln -s $(here)/make/Makeremote $(path)/Makefile || true
-	ln -s $(here)/php/* $(path)/publish/ || true
-	ln -s $(here)/sql/get_full_keyword_table.sql $(path)/publish/ || true
-	ln -s $(here)/clojure/database-deploy.jar $(path)/ || true
+	ln -s /var/www/html/lectures $(path)/publish                   || true
+	ln -s $(here)/sh/get-keywords $(path)/                         || true
+	ln -s $(here)/clojure/database-deploy.jar $(path)/             || true
+	ln -s $(here)/make/Makeremote $(path)/Makefile                 || true
+	ln -s $(here)/php/* $(path)/publish/                           || true
+	#ln -s $(here)/sql/get_full_keyword_table.sql $(path)/publish/ || true
+	ln -s $(here)/clojure/database-deploy.jar $(path)/             || true
+	ln -s $(here)/php/database.ini $(path)/                        || true
 	
 	rm -rf /tmp/latexclasses || true
 	rm -rf /tmp/latexpackages || true
@@ -28,5 +29,4 @@ remote:
 	cp /tmp/latexclasses/note.cls $(path)/
 	cp /tmp/latexpackages/keyword.sty $(path)/
 
-	@echo "Remember to set SQL connection information in $(path)/get-keywords 
-	
+	@echo "Remember to set SQL connection information in php/database.ini"
