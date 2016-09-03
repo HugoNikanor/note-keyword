@@ -1,13 +1,13 @@
 # Note Keywords
 A system for mapping keywords from documents into a database.
 
-Basicly hashtags. This goes along with my LaTeX class *note* which should be 
-available [here](https://github.com/hugonikanor/latexclasses").
+Basicly hashtags. This goes along with my LaTeX class *note* which should be
+available [here](https://github.com/hugonikanor/latexclasses"). Those are also
+downloaded to the server if the Makefile is run
 
 ## TODO
-+ Write the git hooks
-+ Update the sql wrapper to select database and database user
-+ Testing
++ PDF files should be sorted in directories depending on course, otherwise there can only be a single pdf for each day.
++ git hook location should depend on makefile
 
 ---
 
