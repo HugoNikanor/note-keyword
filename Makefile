@@ -26,8 +26,7 @@ install:
 
 	ln -s /var/www/html/lectures $(path)/publish                       || true
 	ln -s $(here)/sh/get-keywords $(path)/                             || true
-	# THIS DOESN'T EXPAND ON THE SERVER!
-	ln -s $(here)/clojure/target/*-standalone.jar $(path)/database-deploy.jar || true
+	ln -s $(here)/clojure/target/database-deploy.jar $(path)/          || true
 	ln -s $(here)/make/Makeremote $(path)/Makefile                     || true
 	ln -s $(here)/php/* $(path)/publish/                               || true
 	#ln -s $(here)/sql/get_full_keyword_table.sql $(path)/publish/     || true
