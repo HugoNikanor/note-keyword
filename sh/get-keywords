@@ -16,6 +16,9 @@ grep -e '\.(log|tex)$' <<< "$rawfile" \
 	&& filename=${rawfile::-4} \
 	|| filename=$rawfile
 
+# Just piping to read aparently doesn't work with read...
+read database user password <<< `cut -d = -f 2 database.ini | tr '\n' ' '`
+
 iconv -s -f iso-8859-1 -t utf-8 "$filename.log" \
 	| grep -oP '\d \[(keyword|course|title)\]:.*' \
 	| sort -t ' ' -hk 1 \
@@ -23,6 +26,6 @@ iconv -s -f iso-8859-1 -t utf-8 "$filename.log" \
 	| cat <(echo "$filename") - \
 	| tee /tmp/latex-keyword-log-$filename \
    	| java -jar database-deploy.jar \
-		--database note_keywords \
-		--user root \
-		--password ""
+		--database $database \
+		--user $user \
+		--password $password
