@@ -8,7 +8,6 @@ remote:
 	@echo "Make sure that a directory /var/www/html/lectures/ extists"
 	@echo "And is read and writeable by $(user)" 
 	ls -dl /var/www/html/lectures
-	read
 
 	mkdir $(path) || true
 	mysql -u $(mysqluser) -p < sql/create_full.sql
