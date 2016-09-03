@@ -13,7 +13,8 @@ disp:
 	mupdf $(f).pdf &
 
 publish:
-	git commit --allow-empty -m "!publish: $(f)"
-	git push
+	git commit --allow-empty -m "#publish: $(f)"
+	# Possibly throw away this output
+	git push &
 
 live: | disp roll
