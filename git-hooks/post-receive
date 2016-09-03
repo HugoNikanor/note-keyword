@@ -10,7 +10,8 @@ fi
 
 echo "publishing!"
 
-DIR="$HOME/code/web/lecture-local"
+# TODO change this depending on how the makefile was run
+DIR="$HOME/lecture"
 
 git show "$new:$filename.tex" > "$DIR/$filename.tex"
 cd "$DIR"
