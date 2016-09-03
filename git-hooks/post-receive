@@ -2,10 +2,16 @@
 
 read old new branch
 commitmessage="$(git show --oneline $new | sed -n '1p' | cut -d ' ' -f 2-)"
-filename="$(grep -P '(?<=!publish: ).*' <<< $commitmessage)"
+filename="$(grep -P '(?<=#publish: ).*' <<< $commitmessage)"
 
-ROOT="$HOME"
+if [ $? != 0 ]; then
+	exit 0
+fi
 
-git-show "$new:$filename.tex" > "$ROOT/lecture"
-cd "$ROOT/lecture"
-make full f="$filename"
+echo "publishing!"
+
+PATH="$HOME"
+
+git-show "$new:$filename.tex" > "$PATH"
+cd "$PATH"
+make full f="$filename" | at now
