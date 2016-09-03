@@ -4,8 +4,9 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [mysql/mysql-connector-java "5.1.25"]]
   :aot [sql-wrapper.core]
+  :min-lein-version "2.0.0"
   :target-path "target/"
-  :compile-path "target/classes/"
-  :native-path "target/bin/"
+  ;:compile-path "target/classes/"
+  ;:native-path "target/bin/"
   :uberjar-name "database-deploy.jar"
   :main sql-wrapper.core)
