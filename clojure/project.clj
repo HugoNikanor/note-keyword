@@ -6,7 +6,5 @@
   :aot [sql-wrapper.core]
   :min-lein-version "2.0.0"
   :target-path "target/"
-  ;:compile-path "target/classes/"
-  ;:native-path "target/bin/"
   :uberjar-name "database-deploy.jar"
   :main sql-wrapper.core)
