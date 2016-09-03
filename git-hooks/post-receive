@@ -1,0 +1,11 @@
+#!/bin/bash
+
+read old new branch
+commitmessage="$(git show --oneline $new | sed -n '1p' | cut -d ' ' -f 2-)"
+filename="$(grep -P '(?<=!publish: ).*' <<< $commitmessage)"
+
+ROOT="$HOME"
+
+git-show "$new:$filename.tex" > "$ROOT/lecture"
+cd "$ROOT/lecture"
+make full f="$filename"
