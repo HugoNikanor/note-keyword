@@ -17,7 +17,8 @@ This directory works as a git template, with the git hook for auto compiling inc
 + git hook location should depend on makefile
 
 ## ISSUES
-+ clojure program sometimes crash on first run. Not sure how to reproduce
++ [Probably resolved] clojure program sometimes crash on first run. Not sure how to reproduce
++ Clojure program crashes with null pointer exception when trying to run it on a file in a sub dir, maybe...
 
 ---
 
