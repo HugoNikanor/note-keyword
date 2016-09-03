@@ -4,4 +4,7 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [mysql/mysql-connector-java "5.1.25"]]
   :aot [sql-wrapper.core]
+  :target-path "target/"
+  :compile-path "target/classes/"
+  :native-path "target/bin/"
   :main sql-wrapper.core)
