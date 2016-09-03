@@ -24,7 +24,13 @@
             course (.readLine reader)
             name (.readLine reader)
             keywords (line-seq reader)]
-        (db/add-keywords-main! :date file-name
-                               :course course
-                               :document_name name
-                               :keywords keywords)))))
+        (db/add-keywords-main!
+          :database {:subprotocol "mysql"
+                     :subname (str "//127.0.0.1:3306/"
+                                   (:database options))
+                     :user (:user options)
+                     :password (:password options)}
+          :date file-name
+          :course course
+          :document_name name
+          :keywords keywords)))))

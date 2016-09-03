@@ -12,6 +12,9 @@ This directory works as a git template, with the git hook for auto compiling inc
 + PDF files should be sorted in directories depending on course, otherwise there can only be a single pdf for each day.
 + git hook location should depend on makefile
 
+## ISSUES
++ clojure program sometimes crash on first run. Not sure how to reproduce
+
 ---
 
 This system currently assumes that no keyword appears multiple times in the same

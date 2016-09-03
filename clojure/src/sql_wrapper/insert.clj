@@ -2,16 +2,10 @@
   (:require [clojure.java.jdbc :as sql]
             [sql-wrapper.macros :refer :all]))
 
-;; TODO possibly read this data from a config file
-(def database {:subprotocol "mysql"
-               :subname "//127.0.0.1:3306/note_keywords"
-               :user "root"
-               :password ""})
-
 (defn add-course!
  "Adds a course to the database, returns the mysql id of the course,
  both if it already existed and if it didn't"
- [name]
+ [database name]
   (best-key
     (first (try
              (sql/insert! database
@@ -28,7 +22,7 @@
 
   The function returns the mysql id of the note,
   both if it exists since before and not"
-  [date course_id & [name]]
+  [database date course_id & [name]]
   (best-key
     (first (try
              (sql/insert! database
@@ -44,7 +38,7 @@
  "Tell the database that the following words should be able to be used
  as keywords. Inserts the names not already presents, and returns a
  list of the id's of the keywords"
- [& name]
+ [database & name]
   (let [id (System/currentTimeMillis)]
     (sql/execute! database
                   (into []
@@ -64,7 +58,7 @@
 (defn add-keyword-bindings!
  "Adds bindings in the database between a note and a number of
  keywords. failsafe if stuff already exists. Undefined return value"
- [note_id & keyword_ids]
+ [database note_id & keyword_ids]
     (sql/execute! database
                   (into []
                         (cons
@@ -84,8 +78,8 @@
 
   TODO the argument list should possibly be changed from taking keys
   to just being raw, to force the user to give complete data."
-  [& {:keys [course date document_name keywords]}]
-  (let [course_id (add-course! course)
-        note_id (add-note! date course_id (if document_name document_name))
-        keyword_ids (apply add-keyword-defs! keywords)]
-    (apply add-keyword-bindings! (cons note_id keyword_ids))))
+  [& {:keys [database course date document_name keywords]}]
+  (let [course_id (add-course! database course)
+        note_id (add-note! database date course_id (if document_name document_name))
+        keyword_ids (apply add-keyword-defs! (cons database keywords))]
+    (apply add-keyword-bindings! (conj [database note_id] keyword_ids))))
