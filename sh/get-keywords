@@ -23,4 +23,3 @@ iconv -s -f iso-8859-1 -t utf-8 "$filename.log" \
 	| cat <(echo "$filename") - \
 	| tee /tmp/latex-keyword-log-$filename \
    	| java -jar database-deploy.jar
-

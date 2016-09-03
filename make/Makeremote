@@ -2,6 +2,10 @@
 f=`date -I`
 
 all:
-	latexmk -pdf $(f)
-	./get-keywords
-	cp $(f).pdf publish/
+	# Input should be without a file exntensio
+	# Maybe the script should be updated to
+	# strip any file ending given
+	latexmk -pdf $(f) \
+		&& cp $(f).pdf publish/ \
+		&& ./get-keywords $(f) \
+		&
