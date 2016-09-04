@@ -7,6 +7,11 @@ downloaded to the server if the Makefile is run
 
 ## About some stuff
 
+## Usage
+Make sure that the remote git repo name matches the course name exactly. Course
+names are always upper cased so the repo also needs to be that. The repo can
+however still have a `.git` extension.
+
 ### git-template
 This directory works as a git template, with the git hook for auto compiling incomming documents marked for compilation.
 
@@ -19,6 +24,7 @@ This isn't a definitive list, it's just what the dev machine had installed
 + git hook location should depend on makefile
 + database.ini should be hidden, probably via apache settings
 + Make it easier to create new local working directories
++ Figure out how to install tex files instead of having them localy
 
 ## ISSUES
 + [Probably resolved] clojure program sometimes crash on first run. Not sure how to reproduce
