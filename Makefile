@@ -39,6 +39,8 @@ install:
 	ln -s $(here)/clojure/database-deploy.jar $(path)/                 || true
 	ln -s $(here)/php/database.ini $(path)/                            || true
 
+	#sed -i 's/##DIR##/$(path)/' git-template/hooks/post-receive
+
 	@echo "Remember to set SQL connection information in php/database.ini"
 
 full: mysql clojure latex install

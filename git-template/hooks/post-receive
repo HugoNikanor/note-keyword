@@ -10,9 +10,10 @@ fi
 
 echo "publishing!"
 
-# TODO change this depending on how the makefile was run
+# This should somehow be auto modified.
+# Probably by copying this template and editing this file from the makefile
+DIR="$HOME/lecture"
 SUBDIR=`pwd | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`
-DIR="$HOME/lecture/"
 
 mkdir "$DIR/$SUBDIR"
 
