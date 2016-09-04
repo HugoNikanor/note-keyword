@@ -24,7 +24,7 @@ iconv -s -f iso-8859-1 -t utf-8 "$filename.log" \
 	| grep -oP '\d \[(keyword|course|title)\]:.*' \
 	| sort -t ' ' -hk 1 \
 	| cut -d ' ' -f 3- \
-	| cat <(echo "$filename") - \
+	| cat <(awk -F '/' '{print $NF}' <<< "$filename") - \
    	| java -jar database-deploy.jar \
 		--database $database \
 		--user $user \
