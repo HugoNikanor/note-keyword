@@ -74,5 +74,9 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 ?>
+
+<hr>
+Created by Hugo Hornquist, source available on <a href="https://github.com/hugonikanor/note-keyword">GitHub</a>.
+
 </body>
 </html>
