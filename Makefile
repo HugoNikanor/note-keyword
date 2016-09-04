@@ -36,7 +36,6 @@ install:
 	ln -s $(here)/clojure/target/database-deploy.jar $(path)/          || true
 	ln -s $(here)/make/Makeremote $(path)/Makefile                     || true
 	ln -s $(here)/php/* $(path)/publish/                               || true
-	#ln -s $(here)/sql/get_full_keyword_table.sql $(path)/publish/     || true
 	ln -s $(here)/clojure/database-deploy.jar $(path)/                 || true
 	ln -s $(here)/php/database.ini $(path)/                            || true
 
