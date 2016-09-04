@@ -11,7 +11,7 @@ fi
 echo "publishing!"
 
 # TODO change this depending on how the makefile was run
-SUBDIR=`pwd | awk -F '/' '{print $NF}'`
+SUBDIR=`pwd | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`
 DIR="$HOME/lecture/"
 
 mkdir "$DIR/$SUBDIR"
