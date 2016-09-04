@@ -6,5 +6,6 @@ all:
 	# Maybe the script should be updated to
 	# strip any file ending given
 	cd $(path); latexmk -pdf $(file)
+	mkdir publish/$(path) || true
 	cp $(path)/$(file).pdf publish/$(path)/
 	./get-keywords $(path)/$(file)

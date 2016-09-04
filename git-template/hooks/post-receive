@@ -12,13 +12,10 @@ echo "publishing!"
 
 # TODO change this depending on how the makefile was run
 SUBDIR=`pwd | awk -F '/' '{print $NF}'`
-DIR="$HOME/lecture/$SUBDIR"
+DIR="$HOME/lecture/"
 
-# TODO check that this doesn't cause an early stop if this doesn't return 0
-mkdir "$DIR"
+mkdir "$DIR/$SUBDIR"
 
-echo "Directory Created"
-
-git show "$new:$filename.tex" > "$DIR/$filename.tex"
+git show "$new:$filename.tex" > "$DIR/$SUBDIR/$filename.tex"
 cd "$DIR"
 make file="$filename" path="$SUBDIR"
