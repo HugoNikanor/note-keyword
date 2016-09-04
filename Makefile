@@ -36,6 +36,8 @@ install:
 	ln -s $(here)/clojure/target/database-deploy.jar $(path)/          || true
 	ln -s $(here)/make/Makeremote $(path)/Makefile                     || true
 	ln -s $(here)/php/* $(path)/publish/                               || true
+	# wildcards doesn't match hidden files
+	ln -s $(here)/php/.htaccess $(path)/publish/                       || true
 	ln -s $(here)/clojure/database-deploy.jar $(path)/                 || true
 	ln -s $(here)/php/database.ini $(path)/                            || true
 
