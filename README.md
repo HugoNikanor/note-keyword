@@ -10,11 +10,15 @@ downloaded to the server if the Makefile is run
 ### git-template
 This directory works as a git template, with the git hook for auto compiling incomming documents marked for compilation.
 
-## Dependencies
+## Dependencies (proved to work with the below)
+This isn't a definitive list, it's just what the dev machine had installed
+- Leiningen 2.0.0 or higher -- This could probably be lowered if I can figure out builds
+
 
 ## TODO
-+ PDF files should be sorted in directories depending on course, otherwise there can only be a single pdf for each day.
 + git hook location should depend on makefile
++ database.ini should be hidden, probably via apache settings
++ Make it easier to create new local working directories
 
 ## ISSUES
 + [Probably resolved] clojure program sometimes crash on first run. Not sure how to reproduce
