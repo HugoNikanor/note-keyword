@@ -61,7 +61,7 @@ if ($result->num_rows > 0) {
 		echo "<tr>";
 		foreach( $row as $key => $item ) {
 			if($key === "date" or $key === "note_name") {
-				echo "<td><a href='" . $row["date"] . ".pdf'>" . $item . "</a></td>";
+				echo "<td><a href='" . $row["course_name"] . "/" . $row["date"] . ".pdf'>" . $item . "</a></td>";
 			} else {
 				echo "<td>" . $item . "</td>";
 			}
