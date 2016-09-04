@@ -25,11 +25,6 @@ This isn't a definitive list, it's just what the dev machine had installed
 + git hook location should depend on makefile
 + Checking of dependencies, especially LaTeX ones
 
-## ISSUES
-**TODO** Move this part to actual GitHub issues.
-+ [Probably resolved] clojure program sometimes crash on first run. Not sure how to reproduce
-+ [Solved] Clojure program crashes with null pointer exception when trying to run it on a file in a sub dir, maybe...
-
 ## Other
 This system currently assumes that no keyword appears multiple times in the same
 text...
