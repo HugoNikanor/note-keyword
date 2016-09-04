@@ -23,8 +23,6 @@ This isn't a definitive list, it's just what the dev machine had installed
 ## TODO
 + git hook location should depend on makefile
 + database.ini should be hidden, probably via apache settings
-+ Make it easier to create new local working directories
-+ Figure out how to install tex files instead of having them localy
 
 ## ISSUES
 + [Probably resolved] clojure program sometimes crash on first run. Not sure how to reproduce
