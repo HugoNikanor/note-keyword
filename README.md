@@ -19,7 +19,7 @@ This directory works as a git template, with the git hook for auto compiling inc
 ## Dependencies (proved to work with the below)
 This isn't a definitive list, it's just what the dev machine had installed
 - Leiningen 2.0.0 or higher -- This could probably be lowered if I can figure out builds
-- [LaTeX keywords](https://github.com/hugonikanor/LaTeXpackages), kinda, the system is worthless without them
+- [LaTeX keywords](https://github.com/hugonikanor/tex-pkg), kinda, the system is worthless without them
 
 ## TODO
 + git hook location should depend on makefile
